@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        div {
+            display: block;
+        }
+         #layout {
+             width: 300px;
+         }
+        span {
+            font-size: 14px;
+        }
+
+        #line {
+            border-top: 3px solid grey;
+        }
+        .pull-right {
+            float: right;
+        }
+        #items {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        #receiptTotal {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="layout">
+        <div id="receiptDetails">
+            <div>
+                <span>Receipt no.</span>
+                <span class="pull-right">{{ emailBody.receipt_number }}</span>
+            </div>
+            <div>
+                <span>Order no.</span>
+                <span class="pull-right">{{ emailBody.order_number }}</span>
+            </div>
+            <div>
+                <span>Trans. {{ emailBody.transaction_number }}</span>
+                <span class="pull-right">{{ emailBody.transaction_date | Date:"MMMM dd, yyyy" }}</span>
+            </div>
+            <div>
+                <span>Payment</span>
+                <span class="pull-right">{{ emailBody.payment_number }}</span>
+            </div>
+        </div>
+        <div id="items">
+            {% for item in emailBody.Items %}
+            <div>
+                <span>Item {{ item.item_number }}</span>
+                <span class="pull-right">{{ item.item_amount }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        <div id="line"></div>
+        <div id="receiptTotal">
+            <div>
+                <span>Subtotal</span>
+                <span class="pull-right">{{ emailBody.receipt_subtotal }}</span>
+            </div>
+            <div>
+                <span>Sales tax</span>
+                <span class="pull-right">{{ emailBody.sales_tax }}</span>
+            </div>
+            <div>
+                <span>Total</span>
+                <span class="pull-right">{{ emailBody.receipt_total }}</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
